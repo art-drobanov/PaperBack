@@ -1,0 +1,561 @@
+Common subdirectories: PaperBack-1.20.RA0193(EN).src/BZLIB and PaperBack-1.20.RA0193(RU).src/BZLIB
+diff PaperBack-1.20.RA0193(EN).src/clean.bat PaperBack-1.20.RA0193(RU).src/clean.bat
+5c5
+< del *.ini
+\ No newline at end of file
+---
+> del *.ini
+diff PaperBack-1.20.RA0193(EN).src/Controls.cpp PaperBack-1.20.RA0193(RU).src/Controls.cpp
+100c100
+<           Message("Processing interrupted",0);
+---
+>           Message("Обработка прервана",0);
+177c177
+<   hprint=CreateWindow("BUTTON","Print",
+---
+>   hprint=CreateWindow("BUTTON","Печать",
+184c184
+<   hscan=CreateWindow("BUTTON","Scan",
+---
+>   hscan=CreateWindow("BUTTON","Сканирование",
+191c191
+<   hopen=CreateWindow("BUTTON","Open bitmap",
+---
+>   hopen=CreateWindow("BUTTON","Открыть изображ.",
+198c198
+<   hstop=CreateWindow("BUTTON","Stop",
+---
+>   hstop=CreateWindow("BUTTON","Стоп",
+205c205
+<   hpage=CreateWindow("BUTTON","Page setup",
+---
+>   hpage=CreateWindow("BUTTON","Настройки стр.",
+212c212
+<   hoptions=CreateWindow("BUTTON","Options",
+---
+>   hoptions=CreateWindow("BUTTON","Опции",
+219c219
+<   hclose=CreateWindow("BUTTON","Close",
+---
+>   hclose=CreateWindow("BUTTON","Закрыть",
+548c548
+<   hshowgrid=CreateWindow("BUTTON","Show grid",
+---
+>   hshowgrid=CreateWindow("BUTTON","Cетка",
+553c553
+<   hshowbad=CreateWindow("BUTTON","Show bad dots",
+---
+>   hshowbad=CreateWindow("BUTTON","\"Битые\" точки",
+558c558
+<   hshownone=CreateWindow("BUTTON","No overlay",
+---
+>   hshownone=CreateWindow("BUTTON","Без разметки",
+654c654
+<   titem.pszText="Quality map";
+---
+>   titem.pszText="Карта качества";
+656c656
+<   titem.pszText="Blocks";
+---
+>   titem.pszText="Блоки";
+956c956
+<       sprintf(s+n,"No frame");
+---
+>       sprintf(s+n,"Нет рамки");
+958c958
+<       sprintf(s+n,"Good");
+---
+>       sprintf(s+n,"Хороший");
+960c960
+<       sprintf(s+n,"1 byte bad");
+---
+>       sprintf(s+n,"1 сбой");
+962c962
+<       sprintf(s+n,"%i bytes bad",answer);
+---
+>       sprintf(s+n,"%i сбой(я)",answer);
+964c964
+<       sprintf(s+n,"Unreadable");
+---
+>       sprintf(s+n,"Нечитаемый");
+1142c1142
+<     sprintf(s,"File %i",i+1);
+---
+>     sprintf(s,"Файл %i",i+1);
+1153c1153
+<   htemp=CreateWindow("STATIC","File",
+---
+>   htemp=CreateWindow("STATIC","Файл",
+1159c1159
+<     "STATIC"," (None)",
+---
+>     "STATIC"," (Нет)",
+1166c1166
+<   htemp=CreateWindow("STATIC","Original size",
+---
+>   htemp=CreateWindow("STATIC","Исх. размер",
+1179c1179
+<   htemp=CreateWindow("STATIC","Modified on",
+---
+>   htemp=CreateWindow("STATIC","Изменён",
+1192c1192
+<   htemp=CreateWindow("STATIC","Total pages",
+---
+>   htemp=CreateWindow("STATIC","Всего страниц",
+1205c1205
+<   htemp=CreateWindow("STATIC","Good blocks",
+---
+>   htemp=CreateWindow("STATIC","Хор. блоков",
+1218c1218
+<   htemp=CreateWindow("STATIC","Bad blocks",
+---
+>   htemp=CreateWindow("STATIC","\"Битых\" блок.",
+1231c1231
+<   htemp=CreateWindow("STATIC","ECC corrections",
+---
+>   htemp=CreateWindow("STATIC","ECC-коррекций",
+1244c1244
+<   htemp=CreateWindow("STATIC","Pages to scan",
+---
+>   htemp=CreateWindow("STATIC","Осталось скан.",
+1263c1263
+<   hdiscard=CreateWindow("BUTTON","Discard",
+---
+>   hdiscard=CreateWindow("BUTTON","Отказаться",
+1269c1269
+<   hsavedata=CreateWindow("BUTTON","Save",
+---
+>   hsavedata=CreateWindow("BUTTON","Сохранить",
+1285c1285
+<     SetWindowText(hdataname," (None)");
+---
+>     SetWindowText(hdataname," (Нет)");
+1300c1300
+<     sprintf(s," %u bytes",fproc->origsize);
+---
+>     sprintf(s," %u байт",fproc->origsize);
+1315c1315
+<     sprintf(s," %u bytes",fproc->restoredbytes);
+---
+>     sprintf(s," %u байт",fproc->restoredbytes);
+1326c1326
+<       sprintf(s," Finished, press \"Save\"");
+---
+>       sprintf(s," Завершено, нажмите \"Сохранить\"");
+1352c1352
+<     ANSI_CHARSET,OUT_TT_PRECIS,
+---
+>     RUSSIAN_CHARSET,OUT_TT_PRECIS,
+Common subdirectories: PaperBack-1.20.RA0193(EN).src/CRYPTO and PaperBack-1.20.RA0193(RU).src/CRYPTO
+diff PaperBack-1.20.RA0193(EN).src/Decoder.cpp PaperBack-1.20.RA0193(RU).src/Decoder.cpp
+269c269
+<     Reporterror("Bitmap is too small to process");
+---
+>     Reporterror("Изображение имеет слишком малые размеры");
+366c366
+<     Reporterror("No image");
+---
+>     Reporterror("Нет изображения");
+442c442
+<     Reporterror("No grid");
+---
+>     Reporterror("Сетка не обнаружена");
+505c505
+<     Reporterror("No grid");
+---
+>     Reporterror("Сетка не обнаружена");
+577c577
+<     Reporterror("Low memory");
+---
+>     Reporterror("Недостаточно памяти (ОЗУ)");
+823c823
+<     sprintf(s,"Processing image");
+---
+>     sprintf(s,"Обработка изображения...");
+825c825
+<     sprintf(s,"%.64s (page %i)",
+---
+>     sprintf(s,"%.64s (стр. %i)",
+892c892
+<     Reporterror("Page label is not readable");
+---
+>     Reporterror("Маркер страницы нечитаем");
+923c923
+<       Message("Searching for raster...",0);
+---
+>       Message("Поиск растра...",0);
+930c930
+<       Message("Searching for grid lines...",0);
+---
+>       Message("Поиск сетки...",0);
+diff PaperBack-1.20.RA0193(EN).src/Fileproc.cpp PaperBack-1.20.RA0193(RU).src/Fileproc.cpp
+88c88
+<       Reporterror("Maximal number of processed files exceeded");
+---
+>       Reporterror("Превышено максимальное количество файлов");
+100c100
+<       Reporterror("Low memory");
+---
+>       Reporterror("Недостаточно памяти (ОЗУ)");
+238c238
+<     Message("Unrecoverable errors on page, please scan it again",0);
+---
+>     Message("Неисправимые ошибки на странице, отсканируйте её снова",0);
+240c240
+<     Message("Page processed, all bad blocks successfully restored",0);
+---
+>     Message("Страница обработана, все \"битые\" блоки восстановлены",0);
+242c242
+<     Message("Page processed",0);
+---
+>     Message("Страница обработана",0);
+262c262
+<       Message("File restored. Press \"Save\" to save it to disk",0);
+---
+>       Message("Файл восстановлен. Нажмите \"Сохранить\" для его записи",0);
+264c264
+<       Message("File complete",0);
+---
+>       Message("Файл восстановлен",0);
+294c294
+<       Reporterror("Encrypted data is not aligned");
+---
+>       Reporterror("Зашифрованные данные не выровнены");
+300c300
+<       Reporterror("Low memory, can't decrypt data");
+---
+>       Reporterror("Недостаточно памяти (ОЗУ), не могу расшифровать данные");
+309c309
+<       Reporterror("Failed to set decryption key");
+---
+>       Reporterror("Не удалось установить ключ дешифрования");
+314c314
+<       Reporterror("Failed to decrypt data");
+---
+>       Reporterror("Не удалось расшифровать данные");
+320c320
+<       Reporterror("Invalid password, please try again");
+---
+>       Reporterror("Неправильный пароль, попробуйте снова");
+340c340
+<       Reporterror("Low memory");
+---
+>       Reporterror("Недостаточно памяти (ОЗУ)");
+348c348
+<       Reporterror("Unable to unpack data");
+---
+>       Reporterror("Не удаётся распаковать данные");
+360c360
+<     Reporterror("Unable to create file");
+---
+>     Reporterror("Не удаётся создать файл");
+370c370
+<     Reporterror("I/O error");
+---
+>     Reporterror("Ошибка I/O");
+374c374
+<   Message("File saved",0);
+---
+>   Message("Файл сохранён",0);
+diff PaperBack-1.20.RA0193(EN).src/Main.cpp PaperBack-1.20.RA0193(RU).src/Main.cpp
+151,153c151,153
+<         if (i==0) strcpy(s,"None");
+<         else if (i==1) strcpy(s,"Fast");
+<         else strcpy(s,"Maximal");
+---
+>         if (i==0) strcpy(s,"Нет");
+>         else if (i==1) strcpy(s,"Быстрое");
+>         else strcpy(s,"Макс.");
+253c253
+<           SetDlgItemText(hw,PAS_TEXT,"Different passwords. Please try again:");
+---
+>           SetDlgItemText(hw,PAS_TEXT,"Пароли не совпадают. Попробуйте снова:");
+diff PaperBack-1.20.RA0193(EN).src/paperback.mak PaperBack-1.20.RA0193(RU).src/paperback.mak
+16c16
+< PROJECT = PaperBack.exe
+---
+> PROJECT = PaperBackRU.exe
+diff PaperBack-1.20.RA0193(EN).src/Printer.cpp PaperBack-1.20.RA0193(RU).src/Printer.cpp
+283c283
+<     Reporterror("Unable to open file");
+---
+>     Reporterror("Не удаётся открыть файл");
+295c295
+<     Reporterror("Invalid file size");
+---
+>     Reporterror("Неправильный размер файла");
+305c305
+<     Reporterror("Low memory");
+---
+>     Reporterror("Недостаточно памяти (ОЗУ)");
+312c312
+<     Reporterror("Low memory");
+---
+>     Reporterror("Недостаточно памяти (ОЗУ)");
+355c355
+<     Reporterror("Unable to read file");
+---
+>     Reporterror("Не удаётся считать файл");
+361c361
+<     Message("Compressing file",(print->readsize+size)*100/print->origsize);
+---
+>     Message("Сжатие файла",(print->readsize+size)*100/print->origsize);
+366c366
+<       Reporterror("Unable to compress data. Try to disable compression.");
+---
+>       Reporterror("Не удаётся сжать данные. Попробуйте отключить компрессию.");
+380c380
+<     Message("Reading file",(print->readsize+size)*100/print->origsize);
+---
+>     Message("Считывание файла",(print->readsize+size)*100/print->origsize);
+407c407
+<       Reporterror("Unable to compress data. Try to disable compression.");
+---
+>       Reporterror("Не удаётся сжать данные. Попробуйте отключить компрессию.");
+459c459
+<   Message("Encrypting data...",0);
+---
+>   Message("Шифрование данных...",0);
+474c474
+<     Message("Failed to generate salt/iv",0);
+---
+>     Message("Не удалось сгенерировать salt/iv",0);
+483c483
+<     Message("Failed to set encryption key",0);
+---
+>     Message("Не удалось установить ключ шифрования",0);
+491c491
+<     Message("Failed to encrypt data",0);
+---
+>     Message("Не удалось зашифровать данные",0);
+566c566
+<       Reporterror("Unable to access printer");
+---
+>       Reporterror("Не удаётся получить доступ к принтеру");
+572c572
+<       Reporterror("The selected printer can't print bitmaps");
+---
+>       Reporterror("Выбранный принтер не может печатать изображения");
+585c585
+<         ANSI_CHARSET,OUT_TT_PRECIS,CLIP_DEFAULT_PRECIS,
+---
+>         RUSSIAN_CHARSET,OUT_TT_PRECIS,CLIP_DEFAULT_PRECIS,
+588c588
+<         ANSI_CHARSET,OUT_TT_PRECIS,CLIP_DEFAULT_PRECIS,
+---
+>         RUSSIAN_CHARSET,OUT_TT_PRECIS,CLIP_DEFAULT_PRECIS,
+599c599
+<       if (GetTextExtentPoint32(print->dc,"Page",4,&extent)==0)
+---
+>       if (GetTextExtentPoint32(print->dc,"Стр.",4,&extent)==0)
+604c604
+<       if (GetTextExtentPoint32(print->dc,"Page",4,&extent)==0)
+---
+>       if (GetTextExtentPoint32(print->dc,"Стр.",4,&extent)==0)
+683c683
+<     Reporterror("Printable area is too small, reduce borders or dot size");
+---
+>     Reporterror("Область печати слишком мала, уменьшите границы или размер точки");
+715c715
+<       Reporterror("Low memory, can't print");
+---
+>       Reporterror("Недостаточно памяти (ОЗУ), не удаётся осуществить печать");
+722c722
+<       Reporterror("Low memory, can't create bitmap");
+---
+>       Reporterror("Недостаточно памяти (ОЗУ), не удаётся создать изображение");
+760c760
+<       Reporterror("Unable to print");
+---
+>       Reporterror("Не удаётся осуществить печать");
+789c789
+<   sprintf(s,"Processing page %i of %i...",print->frompage+1,npages);
+---
+>   sprintf(s,"Обработка стр. %i из %i...",print->frompage+1,npages);
+812c812
+<       Reporterror("Unable to print");
+---
+>       Reporterror("Не удаётся осуществить печать");
+931c931
+<       n=sprintf(s,"%.64s [%s, %i bytes] - page %i of %i",
+---
+>       n=sprintf(s,"%.64s [%s, %i байт] - стр. %i из %i",
+936c936
+<       n=sprintf(s,"Recommended scanner resolution: %i dots per inch",
+---
+>       n=sprintf(s,"Рекомендованное разрешение сканера: %i точек на дюйм",
+962c962
+<       Reporterror("Unable to create bitmap file");
+---
+>       Reporterror("Не удаётся создать файл изображения");
+991c991
+<       Reporterror("Unable to save bitmap");
+---
+>       Reporterror("Не удаётся сохранить изображение");
+diff PaperBack-1.20.RA0193(EN).src/Resource.rc PaperBack-1.20.RA0193(RU).src/Resource.rc
+107c107
+<  POPUP "&File"
+---
+>  POPUP "&Файл"
+109,110c109,110
+<   MENUITEM "&Open bitmap",M_FILE_OPEN
+<   MENUITEM "Save to bitmap",M_FILE_SAVEBMP
+---
+>   MENUITEM "&Открыть изображение",M_FILE_OPEN
+>   MENUITEM "Сохранить в изображение",M_FILE_SAVEBMP
+112,113c112,113
+<   MENUITEM "&Select source", M_FILE_SELECT
+<   MENUITEM "&Acquire", M_FILE_ACQUIRE
+---
+>   MENUITEM "&Выбор сканера", M_FILE_SELECT
+>   MENUITEM "&Сканирование", M_FILE_ACQUIRE
+115,116c115,116
+<   MENUITEM "Page se&tup", M_FILE_PAGE
+<   MENUITEM "&Print", M_FILE_PRINT
+---
+>   MENUITEM "&Настройка страницы", M_FILE_PAGE
+>   MENUITEM "&Печать", M_FILE_PRINT
+118c118
+<   MENUITEM "&Exit\tAlt+X", M_FILE_EXIT
+---
+>   MENUITEM "&Выход\tAlt+X", M_FILE_EXIT
+120c120
+<  POPUP "&Help"
+---
+>  POPUP "&Помощь"
+122c122
+<   MENUITEM "&About", M_HELP_ABOUT
+---
+>   MENUITEM "&О программе", M_HELP_ABOUT
+128c128
+< CAPTION "About PaperBack"
+---
+> CAPTION "О программе PaperBack"
+137c137
+< CAPTION "Options"
+---
+> CAPTION "Опции"
+140,141c140,141
+<  GROUPBOX "Printing", -1, 6, 6, 118, 128, BS_GROUPBOX | WS_GROUP
+<  LTEXT "Dot density", -1, 16, 22, 42, 9
+---
+>  GROUPBOX "Печать", -1, 6, 6, 118, 128, BS_GROUPBOX | WS_GROUP
+>  LTEXT "Плотность тчк.", -1, 16, 22, 42, 9
+143c143
+<  LTEXT "Dot size", -1, 16, 41, 42, 9
+---
+>  LTEXT "Размер тчк.", -1, 16, 41, 42, 9
+145c145
+<  LTEXT "Compression", -1, 16, 60, 42, 9
+---
+>  LTEXT "Сжатие", -1, 16, 60, 42, 9
+147c147
+<  LTEXT "Redundancy", -1, 16, 79, 42, 9
+---
+>  LTEXT "Избыточн.", -1, 16, 79, 42, 9
+149,157c149,157
+<  CHECKBOX "Header and footer", OPT_HEADER, 16, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  CHECKBOX "Border around the page", OPT_BORDER, 16, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  GROUPBOX "Decoding", -1, 131, 6, 118, 73, BS_GROUPBOX | WS_GROUP
+<  CHECKBOX "Autosave complete files", OPT_AUTOSAVE, 141, 23, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  CHECKBOX "Determine best quality", OPT_HIQ, 141, 40, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  CHECKBOX "Accept broken pages", OPT_BROKEN, 141, 57, 100, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  GROUPBOX "Encryption", -1, 131, 83, 118, 51, BS_GROUPBOX | WS_GROUP
+<  CHECKBOX "Encrypt data", OPT_ENCRYPT, 141, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+<  CHECKBOX "Password in open text", OPT_OPENTEXT, 141, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+---
+>  CHECKBOX "Заголовки (верх и низ)", OPT_HEADER, 16, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  CHECKBOX "Рамка страницы", OPT_BORDER, 16, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  GROUPBOX "Декодирование", -1, 131, 6, 118, 73, BS_GROUPBOX | WS_GROUP
+>  CHECKBOX "Автосохранение", OPT_AUTOSAVE, 141, 23, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  CHECKBOX "Автовыбор качества", OPT_HIQ, 141, 40, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  CHECKBOX "Принимать \"битые\" стр.", OPT_BROKEN, 141, 57, 100, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  GROUPBOX "Шифрование", -1, 131, 83, 118, 51, BS_GROUPBOX | WS_GROUP
+>  CHECKBOX "Шифровать данные", OPT_ENCRYPT, 141, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+>  CHECKBOX "Открытый пароль", OPT_OPENTEXT, 141, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+164c164
+< CAPTION "AES-192 data encryption"
+---
+> CAPTION "Шифрование AES-192"
+167c167
+<  LTEXT "Data will be encrypted. Please enter password:", PAS_TEXT, 9, 6, 160, 9
+---
+>  LTEXT "Данные будут зашифрованы. Введите пароль:", PAS_TEXT, 9, 6, 160, 9
+169c169
+<  LTEXT "Confirm password:", -1, 9, 39, 120, 9
+---
+>  LTEXT "Подтвердите пароль:", -1, 9, 39, 120, 9
+177c177
+< CAPTION "Data encrypted"
+---
+> CAPTION "Данные зашифрованы"
+180c180
+<  LTEXT "Please enter password:", PAS_TEXT, 9, 6, 100, 9
+---
+>  LTEXT "Введите пароль:", PAS_TEXT, 9, 6, 100, 9
+diff PaperBack-1.20.RA0193(EN).src/Scanner.cpp PaperBack-1.20.RA0193(RU).src/Scanner.cpp
+130c130
+<   sprintf(s,"Reading %s%s...",fil,ext);
+---
+>   sprintf(s,"Считывание %s%s...",fil,ext);
+136c136
+<     sprintf(s,"Unable to open %s%s",fil,ext);
+---
+>     sprintf(s,"Не удаётся открыть %s%s",fil,ext);
+145c145
+<     sprintf(s,"Unable to read %s%s",fil,ext);
+---
+>     sprintf(s,"Не удаётся считать %s%s",fil,ext);
+158c158
+<     sprintf(s,"Unsupported bitmap type: %s%s",fil,ext);
+---
+>     sprintf(s,"Неподдерживаемый тип изображения: %s%s",fil,ext);
+166c166
+<     Reporterror("Low memory");
+---
+>     Reporterror("Недостаточно памяти (ОЗУ)");
+172c172
+<     sprintf(s,"Unable to read %s%s",fil,ext);
+---
+>     sprintf(s,"Не удаётся считать %s%s",fil,ext);
+235c235
+<     Reporterror("There are no scanner devices on the system");
+---
+>     Reporterror("Не обнаружено сканирующих устройств в системе");
+245c245
+<     Reporterror("Unable to open scanner");
+---
+>     Reporterror("Не удаётся открыть сканер");
+diff PaperBack-1.20.RA0193(EN).src/Service.cpp PaperBack-1.20.RA0193(RU).src/Service.cpp
+67c67
+<   ofn.lpstrFilter="Any file (*.*)\0*.*\0\0";
+---
+>   ofn.lpstrFilter="Любой файл (*.*)\0*.*\0\0";
+70c70
+<   ofn.lpstrTitle="Open file to print";
+---
+>   ofn.lpstrTitle="Открытие файла для печати";
+95c95
+<   ofn.lpstrTitle="Save file as";
+---
+>   ofn.lpstrTitle="Сохранить файл как";
+108c108
+<   ofn.lpstrFilter="Bitmap file (*.bmp)\0*.bmp\0Any file (*.*)\0*.*\0\0";
+---
+>   ofn.lpstrFilter="Файл изображения (*.bmp)\0*.bmp\0Любой файл (*.*)\0*.*\0\0";
+111c111
+<   ofn.lpstrTitle="Open bitmap";
+---
+>   ofn.lpstrTitle="Открыть изображение";
+133c133
+<   ofn.lpstrFilter="Bitmap file (*.bmp)\0*.bmp\0Any file (*.*)\0*.*\0\0";
+---
+>   ofn.lpstrFilter="Файл изображения (*.bmp)\0*.bmp\0Любой файл (*.*)\0*.*\0\0";
+136c136
+<   ofn.lpstrTitle="Save bitmap as";
+---
+>   ofn.lpstrTitle="Сохранить изображение как";
+170c170
+<     Reporterror("Input queue full");
+---
+>     Reporterror("Входная очередь переполнена");

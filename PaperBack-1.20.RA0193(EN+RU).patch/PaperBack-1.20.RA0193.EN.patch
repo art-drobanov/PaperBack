@@ -1,0 +1,535 @@
+Common subdirectories: paperbak-1.10.src/BZLIB and PaperBack-1.20.RA0193(EN).src/BZLIB
+diff -u -N paperbak-1.10.src/clean.bat PaperBack-1.20.RA0193(EN).src/clean.bat
+--- paperbak-1.10.src/clean.bat	1970-01-01 04:00:00.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/clean.bat	2014-06-25 22:27:35.949576600 +0400
+@@ -0,0 +1,5 @@
++del *.obj
++del *.tds
++del *.res
++del *.exe
++del *.ini
+\ No newline at end of file
+diff -u -N paperbak-1.10.src/Controls.cpp PaperBack-1.20.RA0193(EN).src/Controls.cpp
+--- paperbak-1.10.src/Controls.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Controls.cpp	2014-06-25 22:27:35.952583300 +0400
+@@ -36,7 +36,7 @@
+ #include "twain.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ static HFONT     hfont20;              // 20-point bold font
+@@ -302,7 +302,7 @@
+   // Calculate required height of progress bar.  
+   dy=font20height+2*GetSystemMetrics(SM_CXFRAME);
+   // Set initial text to display in progress bar.
+-  sprintf(message,"PaperBack v%i.%02i",VERSIONHI,VERSIONLO);
++  sprintf(message,"PaperBack v%i.%02i %s",VERSIONHI,VERSIONLO,VERSIONMD);
+   showpercent=0;
+   // Create bar.
+   hprogress=CreateWindowEx(
+@@ -569,22 +569,22 @@
+     hblocksel,(HMENU)BSEL_POS,hinst,NULL);
+   SendMessage(hpos,WM_SETFONT,(WPARAM)hfont20,0);
+   // Create cursor buttons.
+-  hleft=CreateWindow("BUTTON","L",
++  hleft=CreateWindow("BUTTON","<",
+     WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
+     rcowner.right-110,23,32,32,
+     hblocksel,(HMENU)BSEL_LEFT,hinst,NULL);
+   SendMessage(hleft,WM_SETFONT,(WPARAM)hfont20,0);
+-  hright=CreateWindow("BUTTON","R",
++  hright=CreateWindow("BUTTON",">",
+     WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
+     rcowner.right-36,23,32,32,
+     hblocksel,(HMENU)BSEL_RIGHT,hinst,NULL);
+   SendMessage(hright,WM_SETFONT,(WPARAM)hfont20,0);
+-  hup=CreateWindow("BUTTON","U",
++  hup=CreateWindow("BUTTON","^",
+     WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
+     rcowner.right-73,5,32,32,
+     hblocksel,(HMENU)BSEL_UP,hinst,NULL);
+   SendMessage(hup,WM_SETFONT,(WPARAM)hfont20,0);
+-  hdown=CreateWindow("BUTTON","D",
++  hdown=CreateWindow("BUTTON","v",
+     WS_CHILD|WS_VISIBLE|BS_PUSHBUTTON,
+     rcowner.right-73,41,32,32,
+     hblocksel,(HMENU)BSEL_DOWN,hinst,NULL);
+@@ -1078,7 +1078,7 @@
+           Message("",0);
+           break;
+         case INFO_SAVE:                // Save button pressed
+-          Saverestoredfile(slot,0);
++          Saverestoredfile(slot,acceptbroken);
+         break;
+       };
+       break;
+@@ -1327,7 +1327,7 @@
+     SetWindowText(hpagelist,s);
+     // Enable or disable buttons.
+     EnableWindow(hdiscard,1);
+-    EnableWindow(hsavedata,fproc->ndata==fproc->nblock);
++    EnableWindow(hsavedata,fproc->ndata==fproc->nblock || acceptbroken);
+   };
+ };
+ 
+diff -u -N paperbak-1.10.src/Crc16.cpp PaperBack-1.20.RA0193(EN).src/Crc16.cpp
+--- paperbak-1.10.src/Crc16.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Crc16.cpp	2014-06-25 22:27:35.954582600 +0400
+@@ -36,7 +36,7 @@
+ #include "twain.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ 
+Common subdirectories: paperbak-1.10.src/CRYPTO and PaperBack-1.20.RA0193(EN).src/CRYPTO
+diff -u -N paperbak-1.10.src/Decoder.cpp PaperBack-1.20.RA0193(EN).src/Decoder.cpp
+--- paperbak-1.10.src/Decoder.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Decoder.cpp	2014-06-25 22:27:35.956584500 +0400
+@@ -36,7 +36,7 @@
+ #include "twain.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ #define NHYST          1024            // Number of points in histogramm
+@@ -996,4 +996,3 @@
+     pdata->step=0;
+   };
+ };
+-
+diff -u -N paperbak-1.10.src/Fileproc.cpp PaperBack-1.20.RA0193(EN).src/Fileproc.cpp
+--- paperbak-1.10.src/Fileproc.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Fileproc.cpp	2014-06-25 22:27:35.958587800 +0400
+@@ -38,7 +38,7 @@
+ #include "CRYPTO/pwd2key.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ 
+@@ -233,10 +233,10 @@
+   // Check whether there are still bad blocks on the page.
+   firstblock=(pf->page-1)*(pf->pagesize/NDATA);
+   for (j=firstblock; j<firstblock+(int)(pf->pagesize/NDATA) && j<pf->nblock; j++) {
+-    if (pf->datavalid[j]!=1) break; };
++    if (pf->datavalid[j]!=1 && !acceptbroken) break; };
+   if (j<firstblock+(int)(pf->pagesize/NDATA) && j<pf->nblock)
+     Message("Unrecoverable errors on page, please scan it again",0);
+-  else if (nbad>0)
++  else if (nbad>0 && !acceptbroken)
+     Message("Page processed, all bad blocks successfully restored",0);
+   else
+     Message("Page processed",0);
+@@ -316,7 +316,7 @@
+       return -1; };
+     memset(ctx,0,sizeof(aes_decrypt_ctx));
+     filecrc=Crc16(tempdata,pf->datasize);
+-    if (filecrc!=pf->filecrc) {
++    if (filecrc!=(ushort)pf->filecrc) {
+       Reporterror("Invalid password, please try again");
+       GlobalFree((HGLOBAL)tempdata);
+       return -1; }
+@@ -342,7 +342,7 @@
+     // Unpack data.
+     length=pf->origsize;
+     success=BZ2_bzBuffToBuffDecompress((char *)bufout,(uint *)&length,
+-      pf->data,pf->datasize,0,0);
++      (char *)pf->data,pf->datasize,0,0);
+     if (success!=BZ_OK) {
+       GlobalFree((HGLOBAL)bufout);
+       Reporterror("Unable to unpack data");
+diff -u -N paperbak-1.10.src/Main.cpp PaperBack-1.20.RA0193(EN).src/Main.cpp
+--- paperbak-1.10.src/Main.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Main.cpp	2014-06-25 22:27:35.960590700 +0400
+@@ -37,7 +37,7 @@
+ #pragma hdrstop
+ 
+ #define MAINPROG
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ ////////////////////////////////////////////////////////////////////////////////
+@@ -75,9 +75,10 @@
+   char s[1024];
+   switch (msg) {
+     case WM_INITDIALOG:
+-      sprintf(s,"\nPaperBack v%i.%02i\n"
++      sprintf(s,"\nPaperBack v%i.%02i %s\n"
+         "Copyright © 2007 Oleh Yuschuk\n"
+-        "Parts copyright © 2013 Michael Mohr\n\n"
++        "Parts copyright © 2013 Michael Mohr\n"
++        "Parts copyright © 2014 Artem Drobanov\n\n"
+         "----- THIS SOFTWARE IS FREE -----\n"
+         "Released under GNU Public License (GPL 3+)\n"
+         "Full sources available\n\n"
+@@ -87,7 +88,7 @@
+         "Copyright © 1996-2010 Julian R. Seward (see sources)\n\n"
+         "AES and SHA code:\n"
+         "Copyright © 1998-2010, Brian Gladman (3-clause BSD)",
+-        VERSIONHI,VERSIONLO);
++        VERSIONHI,VERSIONLO,VERSIONMD);
+       SetDlgItemText(hw,ABOUT_TEXT,s);
+       return TRUE;
+     case WM_COMMAND:
+@@ -178,6 +179,8 @@
+       CheckDlgButton(hw,OPT_AUTOSAVE,(autosave?BST_CHECKED:BST_UNCHECKED));
+       // Initialize best quality checkbox.
+       CheckDlgButton(hw,OPT_HIQ,(bestquality?BST_CHECKED:BST_UNCHECKED));
++      // Initialize accept broken pages checkbox.
++      CheckDlgButton(hw,OPT_BROKEN,(acceptbroken?BST_CHECKED:BST_UNCHECKED));
+       // Initialize encryption checkbox.
+       CheckDlgButton(hw,OPT_ENCRYPT,(encryption?BST_CHECKED:BST_UNCHECKED));
+       // Initialize open text checkbox.
+@@ -206,6 +209,8 @@
+         autosave=(IsDlgButtonChecked(hw,OPT_AUTOSAVE)==BST_CHECKED);
+         // Get best quality option.
+         bestquality=(IsDlgButtonChecked(hw,OPT_HIQ)==BST_CHECKED);
++        // Get accept broken pages option.
++        acceptbroken=(IsDlgButtonChecked(hw,OPT_BROKEN)==BST_CHECKED);
+         // Get encryption option.
+         encryption=(IsDlgButtonChecked(hw,OPT_ENCRYPT)==BST_CHECKED);
+         // Get open text option.
+@@ -332,7 +337,6 @@
+ LRESULT CALLBACK Mainwp(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
+   int i,n;
+   char path[MAXPATH],ext[MAXEXT];
+-  HDC dc;
+   PAINTSTRUCT ps;
+   switch (msg) {
+     case WM_CREATE:
+@@ -398,7 +402,7 @@
+       DragFinish((HDROP)wp);
+       break;
+     case WM_PAINT:
+-      dc=BeginPaint(hw,&ps);
++      BeginPaint(hw,&ps);
+       // Hey, do we have anything to do here? Background is already OK.
+       EndPaint(hw,&ps);
+       break;
+@@ -438,6 +442,7 @@
+   printborder=GetPrivateProfileInt("Settings","Border",0,inifile);
+   autosave=GetPrivateProfileInt("Settings","Autosave",1,inifile);
+   bestquality=GetPrivateProfileInt("Settings","Best quality",1,inifile);
++  acceptbroken=GetPrivateProfileInt("Settings","Accept broken pages",0,inifile);
+   encryption=GetPrivateProfileInt("Settings","Encryption",0,inifile);
+   opentext=GetPrivateProfileInt("Settings","Open password",0,inifile);
+   // Get printer's page size.
+@@ -544,6 +549,8 @@
+     WritePrivateProfileString("Settings","Autosave",s,inifile);
+   sprintf(s,"%i",bestquality);
+     WritePrivateProfileString("Settings","Best quality",s,inifile);
++  sprintf(s,"%i",acceptbroken);
++    WritePrivateProfileString("Settings","Accept broken pages",s,inifile);
+   sprintf(s,"%i",encryption);
+     WritePrivateProfileString("Settings","Encryption",s,inifile);
+   sprintf(s,"%i",opentext);
+diff -u -N paperbak-1.10.src/OPTIONS.RC PaperBack-1.20.RA0193(EN).src/OPTIONS.RC
+--- paperbak-1.10.src/OPTIONS.RC	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/OPTIONS.RC	1970-01-01 04:00:00.000000000 +0400
+@@ -1,42 +0,0 @@
+-/****************************************************************************
+-
+-
+-options.rc
+-
+-produced by Borland Resource Workshop
+-
+-
+-*****************************************************************************/
+-
+-#define DIALOG_1	1
+-#define IDC_COMBOBOX1	101
+-#define IDC_COMBOBOX2	106
+-#define IDC_CHECKBOX2	107
+-#define IDC_CHECKBOX3	108
+-#define IDC_CHECKBOX1	102
+-#define IDC_RADIOBUTTON1	103
+-#define IDC_RADIOBUTTON2	104
+-#define IDC_RADIOBUTTON3	105
+-DIALOG_1 DIALOG 15, 35, 262, 140
+-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+-CAPTION "Options"
+-FONT 8, "MS Sans Serif"
+-{
+- LTEXT "Printing options", -1, 6, 6, 60, 9
+- CONTROL "", -1, "static", SS_BLACKFRAME | WS_CHILD | WS_VISIBLE, 6, 18, 123, 93
+- LTEXT "Dot density", -1, 12, 27, 42, 9
+- COMBOBOX IDC_COMBOBOX1, 57, 24, 39, 114, CBS_DROPDOWN | WS_TABSTOP
+- LTEXT "dots/in", -1, 99, 27, 27, 9
+- LTEXT "Compression", -1, 12, 42, 45, 9
+- CONTROL "None", IDC_RADIOBUTTON1, "BUTTON", BS_AUTORADIOBUTTON, 60, 42, 36, 9
+- CONTROL "Fast", IDC_RADIOBUTTON2, "BUTTON", BS_AUTORADIOBUTTON, 60, 54, 36, 9
+- CONTROL "Best", IDC_RADIOBUTTON3, "BUTTON", BS_AUTORADIOBUTTON, 60, 66, 36, 9
+- LTEXT "Redundancy", -1, 12, 81, 45, 9
+- COMBOBOX IDC_COMBOBOX2, 57, 78, 39, 72, CBS_DROPDOWN | WS_TABSTOP
+- CHECKBOX "Encrypt data", IDC_CHECKBOX1, 12, 93, 60, 12, BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP
+- LTEXT "Decoding options", -1, 132, 6, 60, 9
+- CONTROL "", -1, "static", SS_BLACKFRAME | WS_CHILD | WS_VISIBLE, 132, 18, 123, 93
+- CHECKBOX "Autosave complete files", IDC_CHECKBOX2, 138, 24, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- CHECKBOX "Determine best quality", IDC_CHECKBOX3, 138, 39, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- DEFPUSHBUTTON "OK", IDOK, 106, 120, 50, 14
+-}
+diff -u -N paperbak-1.10.src/paperback.h PaperBack-1.20.RA0193(EN).src/paperback.h
+--- paperbak-1.10.src/paperback.h	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/paperback.h	2014-06-25 22:27:35.962593100 +0400
+@@ -24,7 +24,8 @@
+ #endif
+ 
+ #define VERSIONHI      1               // Major version
+-#define VERSIONLO      10              // Minor version
++#define VERSIONLO      20              // Minor version
++#define VERSIONMD      "(RA0193)"      // Modifier of version
+ 
+ #define MAINDX         800             // Max width of the main window, pixels
+ #define MAINDY         600             // Max height of the main window, pixels
+@@ -374,6 +375,7 @@
+ unique int       printborder;          // Border around bitmap
+ unique int       autosave;             // Autosave completed files
+ unique int       bestquality;          // Determine best quality
++unique int       acceptbroken;         // Accept broken pages
+ unique int       encryption;           // Encrypt data before printing
+ unique int       opentext;             // Enter passwords in open text
+ 
+diff -u -N paperbak-1.10.src/paperback.mak PaperBack-1.20.RA0193(EN).src/paperback.mak
+--- paperbak-1.10.src/paperback.mak	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/paperback.mak	2014-06-25 22:27:35.964602600 +0400
+@@ -13,10 +13,10 @@
+ 
+ VERSION = BCB.05.03
+ # ---------------------------------------------------------------------------
+-PROJECT = PaperBak.exe
++PROJECT = PaperBack.exe
+ OBJFILES = Main.obj Ecc.obj Crc16.obj Printer.obj Decoder.obj \
+     Fileproc.obj Controls.obj Scanner.obj Service.obj
+-RESFILES = PaperBak.res Resource.res
++RESFILES = RESOURCE.RES
+ MAINSOURCE = Main.cpp
+ RESDEPEN = $(RESFILES)
+ LIBFILES = 
+Files paperbak-1.10.src/PAPERBAK.RES and PaperBack-1.20.RA0193(EN).src/PAPERBAK.RES differ
+diff -u -N paperbak-1.10.src/Printer.cpp PaperBack-1.20.RA0193(EN).src/Printer.cpp
+--- paperbak-1.10.src/Printer.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Printer.cpp	2014-06-26 20:19:23.419484000 +0400
+@@ -38,7 +38,7 @@
+ #include "CRYPTO/pwd2key.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ // Initializes printer settings. This operation is done blindly, without
+@@ -680,7 +680,7 @@
+   nx=(width-px-2*print->border)/(NDOT*dx+3*dx);
+   ny=(height-py-2*print->border)/(NDOT*dy+3*dy);
+   if (nx<print->redundancy+1 || ny<3 || nx*ny<2*print->redundancy+2) {
+-    Reporterror("Printable area is too small, reduce borders or block size");
++    Reporterror("Printable area is too small, reduce borders or dot size");
+     Stopprinting(print);
+     return; };
+   // Calculate final size of the bitmap where I will draw the image.
+@@ -933,7 +933,7 @@
+       SelectObject(print->dc,print->hfont6);
+       TextOut(print->dc,print->borderleft+width/2,print->bordertop,s,n);
+       // Print info at the bottom of the page.
+-      n=sprintf(s,"Recommended scanner resolution %i dots per inch",
++      n=sprintf(s,"Recommended scanner resolution: %i dots per inch",
+         max(print->ppix*3/dx,print->ppiy*3/dy));
+       SelectObject(print->dc,print->hfont10);
+       TextOut(print->dc,
+diff -u -N paperbak-1.10.src/README.md PaperBack-1.20.RA0193(EN).src/README.md
+--- paperbak-1.10.src/README.md	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/README.md	2014-06-25 22:27:35.967607900 +0400
+@@ -3,7 +3,7 @@
+ 
+ This goal of this project is to:
+ 
+-1) document the process by which Paperbak is built
++1) document the process by which Paperback is built
+ 2) fix its crypto implementation
+ 
+ The upstream source of this application is:
+@@ -54,9 +54,9 @@
+ HKEY_LOCAL_MACHINE -> System -> CurrentControlSet -> Control -> Session Manager -> Environment -> PATH
+ Now prepend the path C:\Borland\BCC55\Bin
+ 
+-5) Place this source code in a path without spaces (i.e. C:\paperbak), then build it:
++5) Place this source code in a path without spaces (i.e. C:\paperback), then build it:
+ 
+-make -f paperbak.mak
++make -f paperback.mak
+ 
+ Changelog
+ ===
+diff -u -N paperbak-1.10.src/Resource.h PaperBack-1.20.RA0193(EN).src/Resource.h
+--- paperbak-1.10.src/Resource.h	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Resource.h	2014-06-25 22:27:35.968609100 +0400
+@@ -20,8 +20,9 @@
+ #define OPT_BORDER     3107
+ #define OPT_AUTOSAVE   3108
+ #define OPT_HIQ        3109
+-#define OPT_ENCRYPT    3110
+-#define OPT_OPENTEXT   3111
++#define OPT_BROKEN     3110
++#define OPT_ENCRYPT    3111
++#define OPT_OPENTEXT   3112
+ #define OPT_OK         IDOK
+ #define OPT_CANCEL     IDCANCEL
+ 
+diff -u -N paperbak-1.10.src/Resource.rc PaperBack-1.20.RA0193(EN).src/Resource.rc
+--- paperbak-1.10.src/Resource.rc	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Resource.rc	2014-06-25 22:27:35.970611500 +0400
+@@ -123,18 +123,16 @@
+  }
+ }
+ 
+-
+-DIALOG_ABOUT DIALOG 32, 32, 200, 169
++DIALOG_ABOUT DIALOG 32, 32, 200, 189
+ STYLE   WS_VISIBLE | WS_CLIPSIBLINGS | DS_3DLOOK
+-CAPTION "About Paper Backup"
++CAPTION "About PaperBack"
+ FONT 8, "MS Sans Serif"
+ {
+- LTEXT "Text", ABOUT_TEXT, 5, 5, 190, 140, WS_BORDER | SS_CENTER
+- DEFPUSHBUTTON "OK", ABOUT_OK, 75, 150, 50, 14
++ LTEXT "Text", ABOUT_TEXT, 5, 5, 190, 160, WS_BORDER | SS_CENTER
++ DEFPUSHBUTTON "OK", ABOUT_OK, 75, 170, 50, 14
+ }
+ 
+-
+-DIALOG_OPTIONS DIALOG 32, 32, 255, 140
++DIALOG_OPTIONS DIALOG 32, 32, 255, 163
+ STYLE   DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_3DLOOK
+ CAPTION "Options"
+ FONT 8, "MS Sans Serif"
+@@ -150,19 +148,20 @@
+  COMBOBOX OPT_REDUND, 64, 77, 49, 114, CBS_DROPDOWNLIST | WS_TABSTOP
+  CHECKBOX "Header and footer", OPT_HEADER, 16, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+  CHECKBOX "Border around the page", OPT_BORDER, 16, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- GROUPBOX "Decoding", -1, 131, 6, 118, 51, BS_GROUPBOX | WS_GROUP
+- CHECKBOX "Autosave complete files", OPT_AUTOSAVE, 141, 20, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- CHECKBOX "Determine best quality", OPT_HIQ, 141, 37, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- GROUPBOX "Encryption", -1, 131, 64, 118, 51, BS_GROUPBOX | WS_GROUP
+- CHECKBOX "Encrypt data", OPT_ENCRYPT, 141, 78, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- CHECKBOX "Password in open text", OPT_OPENTEXT, 141, 95, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
+- DEFPUSHBUTTON "OK", OPT_OK, 131, 120, 56, 14
+- PUSHBUTTON "Cancel", OPT_CANCEL, 193, 120, 56, 14
++ GROUPBOX "Decoding", -1, 131, 6, 118, 73, BS_GROUPBOX | WS_GROUP
++ CHECKBOX "Autosave complete files", OPT_AUTOSAVE, 141, 23, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
++ CHECKBOX "Determine best quality", OPT_HIQ, 141, 40, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
++ CHECKBOX "Accept broken pages", OPT_BROKEN, 141, 57, 100, 12, BS_AUTOCHECKBOX | WS_TABSTOP
++ GROUPBOX "Encryption", -1, 131, 83, 118, 51, BS_GROUPBOX | WS_GROUP
++ CHECKBOX "Encrypt data", OPT_ENCRYPT, 141, 97, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
++ CHECKBOX "Password in open text", OPT_OPENTEXT, 141, 114, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
++ DEFPUSHBUTTON "OK", OPT_OK, 131, 143, 56, 14
++ PUSHBUTTON "Cancel", OPT_CANCEL, 193, 143, 56, 14
+ }
+ 
+-DIALOG_CONFIRM DIALOG 32, 32, 194, 93
++DIALOG_CONFIRM DIALOG 32, 32, 195, 94
+ STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_3DLOOK
+-CAPTION "AES data encryption"
++CAPTION "AES-192 data encryption"
+ FONT 8, "MS Sans Serif"
+ {
+  LTEXT "Data will be encrypted. Please enter password:", PAS_TEXT, 9, 6, 160, 9
+@@ -183,4 +182,3 @@
+  DEFPUSHBUTTON "OK", PAS_OK, 70, 40, 56, 14
+  PUSHBUTTON "Cancel", PAS_CANCEL, 132, 40, 56, 14
+ }
+-
+diff -u -N paperbak-1.10.src/Scanner.cpp PaperBack-1.20.RA0193(EN).src/Scanner.cpp
+--- paperbak-1.10.src/Scanner.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Scanner.cpp	2014-06-25 22:27:35.972614400 +0400
+@@ -36,7 +36,7 @@
+ #include "twain.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ static HINSTANCE htwaindll;            // Handle of TWAIN_32.DLL
+diff -u -N paperbak-1.10.src/Service.cpp PaperBack-1.20.RA0193(EN).src/Service.cpp
+--- paperbak-1.10.src/Service.cpp	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/Service.cpp	2014-06-25 22:27:35.973615600 +0400
+@@ -36,7 +36,7 @@
+ #include "twain.h"
+ #pragma hdrstop
+ 
+-#include "paperbak.h"
++#include "paperback.h"
+ #include "resource.h"
+ 
+ 
+@@ -75,7 +75,7 @@
+ // Asks user to enter the name of the output data file (outfile). Returns 0 on
+ // success and -1 on error or if user pressed Cancel.
+ int Selectoutfile(char defname[64]) {
+-  char s[65],drv[MAXDRIVE],dir[MAXDIR],fil[MAXFILE],ext[MAXEXT];
++  char s[65],drv[MAXDRIVE],dir[MAXDIR],fil[MAXFILE],ext[MAXEXT],extflt[MAXEXT];
+   OPENFILENAME ofn;
+   // Split old path into components.
+   fnsplit(outfile,drv,dir,fil,ext);
+@@ -88,7 +88,8 @@
+   ofn.lStructSize=min(OPENFILENAME_SIZE_VERSION_400,sizeof(ofn));
+   ofn.hwndOwner=hwmain;
+   ofn.hInstance=hinst;
+-  ofn.lpstrFilter="Any file (*.*)\0*.*\0\0";
++  strncpy(extflt,ext,MAXEXT); extflt[MAXEXT]='\0';
++  ofn.lpstrFilter=extflt;
+   ofn.lpstrFile=outfile;
+   ofn.nMaxFile=sizeof(outfile);
+   ofn.lpstrTitle="Save file as";
+diff -u -N paperbak-1.10.src/upstream.html PaperBack-1.20.RA0193(EN).src/upstream.html
+--- paperbak-1.10.src/upstream.html	2013-07-18 07:56:52.000000000 +0400
++++ PaperBack-1.20.RA0193(EN).src/upstream.html	2014-06-25 22:27:35.975617500 +0400
+@@ -11,6 +11,36 @@
+  href="http://www.ollydbg.de">OllyDbg</a>, presents his new open source
+ joke:</span><big><br>
+ <br>
++<big>PAPERBACK v1.10</big></big><br>
++<br><span style="font-weight: bold;">Updated by Michael Mohr</span><br><br><a href="http://ollydbg.de/Paperbak/paperbak-1.10.exe.zip"><span style="font-weight: bold;">Download PaperBack v1.10</span></a><br><a href="http://ollydbg.de/Paperbak/paperbak-1.10.src.zip"><span style="font-weight: bold;">Download sources v1.10</span></a><br><br>PaperBack version 1.00 does not implement AES encryption properly.&nbsp; Specifically:<br><br>a)
++The key used for (en|de)cryption in version 1.00 provides at most an
++effective key strength of less than 50 bits (and likely far less,
++perhaps on the order of 15-25 bits, depending on password quality)
++instead of the expected 256 bits.&nbsp; Version 1.10 derives the encryption
++key from the password via key stretching, significantly improving key
++strength.&nbsp; This change causes a small delay in the encryption step.<br>
++<br>b) PaperBack version 1.0 implements ECB mode symmetric encryption.&nbsp;
++This mode is subject to a watermark attack and leaks information about
++the encrypted data.&nbsp; Version 1.00 changes the encryption mode to CBC,
++which mitigates this attack.<br>
++<br>2) AES key length is now selectable in paperbak.h via
++AESKEYLEN.&nbsp; I suggest not using AES-256, as its key schedule is known
++to be substandard.&nbsp; See Bruce Schneier's website for details.&nbsp; For the
++moment I've switched PaperBack to use AES-192.<br>
++<br>3) The included libraries are now packaged as binary
++.lib files.&nbsp; Instructions for rebuilding them from source are included
++in README.md from the PaperBack source code.<br><span style="font-style: italic;"><br>(Olly:
++mea maxima culpa. I am no cryptanalytic, and wrote Paperback quickly
++and without much thinking about the strength of the code. Btw, can this
++new release read old bitmaps?)<br></span><br><hr style="width: 100%; height: 2px;"><br><big><big>PAPERBACK v1.00</big></big><br><br>
++<a href="http://ollydbg.de/Paperbak/PaperBak.exe" style="color: rgb(204, 0, 0); font-weight: bold;">Download
++PaperBack v1.00</a><br style="color: rgb(204, 0, 0); font-weight: bold;">
++<a href="http://ollydbg.de/Paperbak/Paperbak.zip" style="color: rgb(204, 0, 0); font-weight: bold;">Download
++sources v1.00</a><br style="color: rgb(204, 0, 0); font-weight: bold;">
++<a href="http://ollydbg.de/Paperbak/gpl.txt" style="color: rgb(204, 0, 0); font-weight: bold;">Read
++GNU GPL</a><br>
++<br>
++<br>
+ <big>PAPERBACK v1.00</big></big><br>
+ <br>
+ <a href="PaperBak.exe" style="color: rgb(204, 0, 0); font-weight: bold;">Download

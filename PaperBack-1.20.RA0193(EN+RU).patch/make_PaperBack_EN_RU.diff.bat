@@ -1,0 +1,1 @@
+diff PaperBack-1.20.RA0193(EN).src/ PaperBack-1.20.RA0193(RU).src/ > PaperBack_EN_RU.diff
