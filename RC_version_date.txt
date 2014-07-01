@@ -1,8 +1,0 @@
-*****************************************
-PaperBack 1.20.RA0193
-RELEASE CANDIDATE
-27.06.14 19:23
-CRC32
-PaperBack.exe:   B11686A3 (244 224 bytes)
-PaperBackRU.exe: AEB93B97 (244 736 bytes)
-*****************************************

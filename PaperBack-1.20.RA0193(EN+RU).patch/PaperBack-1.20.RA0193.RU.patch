@@ -1,7 +1,7 @@
 Common subdirectories: paperbak-1.10.src/BZLIB and PaperBack-1.20.RA0193(RU).src/BZLIB
 diff -u -N paperbak-1.10.src/clean.bat PaperBack-1.20.RA0193(RU).src/clean.bat
 --- paperbak-1.10.src/clean.bat	1970-01-01 04:00:00.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/clean.bat	2014-06-25 22:28:10.667600100 +0400
++++ PaperBack-1.20.RA0193(RU).src/clean.bat	2014-06-27 19:22:23.826724600 +0400
 @@ -0,0 +1,5 @@
 +del *.obj
 +del *.tds
@@ -10,7 +10,7 @@ diff -u -N paperbak-1.10.src/clean.bat PaperBack-1.20.RA0193(RU).src/clean.bat
 +del *.ini
 diff -u -N paperbak-1.10.src/Controls.cpp PaperBack-1.20.RA0193(RU).src/Controls.cpp
 --- paperbak-1.10.src/Controls.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Controls.cpp	2014-06-25 22:28:10.671604500 +0400
++++ PaperBack-1.20.RA0193(RU).src/Controls.cpp	2014-06-27 19:22:23.829728600 +0400
 @@ -36,7 +36,7 @@
  #include "twain.h"
  #pragma hdrstop
@@ -340,7 +340,7 @@ diff -u -N paperbak-1.10.src/Controls.cpp PaperBack-1.20.RA0193(RU).src/Controls
    if (hfont20==NULL)                   // Emergency action
 diff -u -N paperbak-1.10.src/Crc16.cpp PaperBack-1.20.RA0193(RU).src/Crc16.cpp
 --- paperbak-1.10.src/Crc16.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Crc16.cpp	2014-06-25 22:28:10.673606900 +0400
++++ PaperBack-1.20.RA0193(RU).src/Crc16.cpp	2014-06-27 19:22:23.831731000 +0400
 @@ -36,7 +36,7 @@
  #include "twain.h"
  #pragma hdrstop
@@ -353,7 +353,7 @@ diff -u -N paperbak-1.10.src/Crc16.cpp PaperBack-1.20.RA0193(RU).src/Crc16.cpp
 Common subdirectories: paperbak-1.10.src/CRYPTO and PaperBack-1.20.RA0193(RU).src/CRYPTO
 diff -u -N paperbak-1.10.src/Decoder.cpp PaperBack-1.20.RA0193(RU).src/Decoder.cpp
 --- paperbak-1.10.src/Decoder.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Decoder.cpp	2014-06-25 22:28:10.676610000 +0400
++++ PaperBack-1.20.RA0193(RU).src/Decoder.cpp	2014-06-27 19:22:23.833733400 +0400
 @@ -36,7 +36,7 @@
  #include "twain.h"
  #pragma hdrstop
@@ -453,7 +453,7 @@ diff -u -N paperbak-1.10.src/Decoder.cpp PaperBack-1.20.RA0193(RU).src/Decoder.c
 -
 diff -u -N paperbak-1.10.src/Fileproc.cpp PaperBack-1.20.RA0193(RU).src/Fileproc.cpp
 --- paperbak-1.10.src/Fileproc.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Fileproc.cpp	2014-06-25 22:28:10.679613600 +0400
++++ PaperBack-1.20.RA0193(RU).src/Fileproc.cpp	2014-06-27 19:22:23.835735800 +0400
 @@ -38,7 +38,7 @@
  #include "CRYPTO/pwd2key.h"
  #pragma hdrstop
@@ -595,7 +595,7 @@ diff -u -N paperbak-1.10.src/Fileproc.cpp PaperBack-1.20.RA0193(RU).src/Fileproc
  
 diff -u -N paperbak-1.10.src/Main.cpp PaperBack-1.20.RA0193(RU).src/Main.cpp
 --- paperbak-1.10.src/Main.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Main.cpp	2014-06-25 22:28:10.682618100 +0400
++++ PaperBack-1.20.RA0193(RU).src/Main.cpp	2014-06-27 19:22:23.837738600 +0400
 @@ -37,7 +37,7 @@
  #pragma hdrstop
  
@@ -749,7 +749,7 @@ diff -u -N paperbak-1.10.src/OPTIONS.RC PaperBack-1.20.RA0193(RU).src/OPTIONS.RC
 -}
 diff -u -N paperbak-1.10.src/paperback.h PaperBack-1.20.RA0193(RU).src/paperback.h
 --- paperbak-1.10.src/paperback.h	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/paperback.h	2014-06-25 22:28:10.685621200 +0400
++++ PaperBack-1.20.RA0193(RU).src/paperback.h	2014-06-27 19:22:23.840742200 +0400
 @@ -24,7 +24,8 @@
  #endif
  
@@ -770,7 +770,7 @@ diff -u -N paperbak-1.10.src/paperback.h PaperBack-1.20.RA0193(RU).src/paperback
  
 diff -u -N paperbak-1.10.src/paperback.mak PaperBack-1.20.RA0193(RU).src/paperback.mak
 --- paperbak-1.10.src/paperback.mak	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/paperback.mak	2014-06-25 22:28:10.687624500 +0400
++++ PaperBack-1.20.RA0193(RU).src/paperback.mak	2014-06-27 19:22:23.842744600 +0400
 @@ -13,10 +13,10 @@
  
  VERSION = BCB.05.03
@@ -787,7 +787,7 @@ diff -u -N paperbak-1.10.src/paperback.mak PaperBack-1.20.RA0193(RU).src/paperba
 Files paperbak-1.10.src/PAPERBAK.RES and PaperBack-1.20.RA0193(RU).src/PAPERBAK.RES differ
 diff -u -N paperbak-1.10.src/Printer.cpp PaperBack-1.20.RA0193(RU).src/Printer.cpp
 --- paperbak-1.10.src/Printer.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Printer.cpp	2014-06-26 20:18:56.758690400 +0400
++++ PaperBack-1.20.RA0193(RU).src/Printer.cpp	2014-06-27 19:22:23.844747900 +0400
 @@ -38,7 +38,7 @@
  #include "CRYPTO/pwd2key.h"
  #pragma hdrstop
@@ -1040,31 +1040,29 @@ diff -u -N paperbak-1.10.src/Printer.cpp PaperBack-1.20.RA0193(RU).src/Printer.c
      };
 diff -u -N paperbak-1.10.src/README.md PaperBack-1.20.RA0193(RU).src/README.md
 --- paperbak-1.10.src/README.md	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/README.md	2014-06-25 22:28:10.692630000 +0400
-@@ -3,7 +3,7 @@
- 
- This goal of this project is to:
- 
--1) document the process by which Paperbak is built
-+1) document the process by which Paperback is built
- 2) fix its crypto implementation
- 
- The upstream source of this application is:
-@@ -54,9 +54,9 @@
- HKEY_LOCAL_MACHINE -> System -> CurrentControlSet -> Control -> Session Manager -> Environment -> PATH
- Now prepend the path C:\Borland\BCC55\Bin
- 
--5) Place this source code in a path without spaces (i.e. C:\paperbak), then build it:
-+5) Place this source code in a path without spaces (i.e. C:\paperback), then build it:
- 
--make -f paperbak.mak
-+make -f paperback.mak
- 
++++ PaperBack-1.20.RA0193(RU).src/README.md	2014-07-01 21:03:59.293160300 +0400
+@@ -61,6 +61,14 @@
  Changelog
  ===
+ 
+-1.00 - First public release
+-1.10 - Fix crypto implementation
+-       Switch to precompiled libraries
++1.00 - First public release.
++1.10 - Fix crypto implementation.
++       Switch to precompiled libraries.
++1.20 (RA0193) -
++       Small GUI fixes.
++       "Accept broken pages" mode was implemented. Now you can use any third-party error correction tool
++       to recover deep-damaged archive, you can even save one page from archive). To get ability to use
++       this new feature, you should to use data printing without compression and encryption, if it needed,
++       encrypt data before printing. Remember, that "PaperBack" can accumulate good data blocks and any
++       scanned copy of data page is useful. Working with bitmaps better, than directly with scanner,
++       scan all pages before.
+\ No newline at end of file
 diff -u -N paperbak-1.10.src/Resource.h PaperBack-1.20.RA0193(RU).src/Resource.h
 --- paperbak-1.10.src/Resource.h	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Resource.h	2014-06-25 22:28:10.694632900 +0400
++++ PaperBack-1.20.RA0193(RU).src/Resource.h	2014-06-27 19:22:23.848752300 +0400
 @@ -20,8 +20,9 @@
  #define OPT_BORDER     3107
  #define OPT_AUTOSAVE   3108
@@ -1079,7 +1077,7 @@ diff -u -N paperbak-1.10.src/Resource.h PaperBack-1.20.RA0193(RU).src/Resource.h
  
 diff -u -N paperbak-1.10.src/Resource.rc PaperBack-1.20.RA0193(RU).src/Resource.rc
 --- paperbak-1.10.src/Resource.rc	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Resource.rc	2014-06-25 22:28:10.696634400 +0400
++++ PaperBack-1.20.RA0193(RU).src/Resource.rc	2014-06-27 19:22:23.850755600 +0400
 @@ -104,70 +104,69 @@
  
  MENU_MAIN MENU
@@ -1204,7 +1202,7 @@ diff -u -N paperbak-1.10.src/Resource.rc PaperBack-1.20.RA0193(RU).src/Resource.
 -
 diff -u -N paperbak-1.10.src/Scanner.cpp PaperBack-1.20.RA0193(RU).src/Scanner.cpp
 --- paperbak-1.10.src/Scanner.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Scanner.cpp	2014-06-25 22:28:10.699639300 +0400
++++ PaperBack-1.20.RA0193(RU).src/Scanner.cpp	2014-06-27 19:22:23.852758000 +0400
 @@ -36,7 +36,7 @@
  #include "twain.h"
  #pragma hdrstop
@@ -1284,7 +1282,7 @@ diff -u -N paperbak-1.10.src/Scanner.cpp PaperBack-1.20.RA0193(RU).src/Scanner.c
    return 0;
 diff -u -N paperbak-1.10.src/Service.cpp PaperBack-1.20.RA0193(RU).src/Service.cpp
 --- paperbak-1.10.src/Service.cpp	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/Service.cpp	2014-06-25 22:28:10.701641700 +0400
++++ PaperBack-1.20.RA0193(RU).src/Service.cpp	2014-06-27 19:22:23.854759900 +0400
 @@ -36,7 +36,7 @@
  #include "twain.h"
  #pragma hdrstop
@@ -1367,7 +1365,7 @@ diff -u -N paperbak-1.10.src/Service.cpp PaperBack-1.20.RA0193(RU).src/Service.c
      strcpy(queue[nqueue].path,path);
 diff -u -N paperbak-1.10.src/upstream.html PaperBack-1.20.RA0193(RU).src/upstream.html
 --- paperbak-1.10.src/upstream.html	2013-07-18 07:56:52.000000000 +0400
-+++ PaperBack-1.20.RA0193(RU).src/upstream.html	2014-06-25 22:28:10.703644600 +0400
++++ PaperBack-1.20.RA0193(RU).src/upstream.html	2014-06-27 19:22:23.856762300 +0400
 @@ -11,6 +11,36 @@
   href="http://www.ollydbg.de">OllyDbg</a>, presents his new open source
  joke:</span><big><br>

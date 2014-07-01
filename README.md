@@ -61,6 +61,14 @@ make -f paperbak.mak
 Changelog
 ===
 
-1.00 - First public release
-1.10 - Fix crypto implementation
-       Switch to precompiled libraries
+1.00 - First public release.
+1.10 - Fix crypto implementation.
+       Switch to precompiled libraries.
+1.20 (RA0193) -
+       Small GUI fixes.
+       "Accept broken pages" mode was implemented. Now you can use any third-party error correction tool
+       to recover deep-damaged archive, you can even save one page from archive). To get ability to use
+       this new feature, you should to use data printing without compression and encryption, if it needed,
+       encrypt data before printing. Remember, that "PaperBack" can accumulate good data blocks and any
+       scanned copy of data page is useful. Working with bitmaps better, than directly with scanner,
+       scan all pages before.

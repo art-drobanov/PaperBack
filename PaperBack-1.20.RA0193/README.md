@@ -3,7 +3,7 @@ PaperBack
 
 This goal of this project is to:
 
-1) document the process by which Paperback is built
+1) document the process by which Paperbak is built
 2) fix its crypto implementation
 
 The upstream source of this application is:
@@ -54,13 +54,21 @@ https://downloads.embarcadero.com/free/c_builder
 HKEY_LOCAL_MACHINE -> System -> CurrentControlSet -> Control -> Session Manager -> Environment -> PATH
 Now prepend the path C:\Borland\BCC55\Bin
 
-5) Place this source code in a path without spaces (i.e. C:\paperback), then build it:
+5) Place this source code in a path without spaces (i.e. C:\paperbak), then build it:
 
-make -f paperback.mak
+make -f paperbak.mak
 
 Changelog
 ===
 
-1.00 - First public release
-1.10 - Fix crypto implementation
-       Switch to precompiled libraries
+1.00 - First public release.
+1.10 - Fix crypto implementation.
+       Switch to precompiled libraries.
+1.20 (RA0193) -
+       Small GUI fixes.
+       "Accept broken pages" mode was implemented. Now you can use any third-party error correction tool
+       to recover deep-damaged archive, you can even save one page from archive). To get ability to use
+       this new feature, you should to use data printing without compression and encryption, if it needed,
+       encrypt data before printing. Remember, that "PaperBack" can accumulate good data blocks and any
+       scanned copy of data page is useful. Working with bitmaps better, than directly with scanner,
+       scan all pages before.
